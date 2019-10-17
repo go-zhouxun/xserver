@@ -14,14 +14,21 @@ import (
 	"github.com/go-zhouxun/xutil/xtime"
 )
 
-func init() {
-	xserver := &XServer{}
-	http.HandleFunc("/", xserver.Service)
-}
-
 type XServer struct {
 	logger xlog.XLog
-	router xrouter.XRouter
+	Router *xrouter.XRouter
+}
+
+func NewXServer(logger xlog.XLog) *XServer {
+	return &XServer{
+		logger: logger,
+		Router: xrouter.NewXRouter(),
+	}
+}
+
+func (server XServer) Listen(port int) error {
+	http.HandleFunc("/", server.Service)
+	return http.ListenAndServe(":"+strconv.Itoa(port), nil)
 }
 
 func ParseRequest(req *xreq.XReq) error {
@@ -30,8 +37,8 @@ func ParseRequest(req *xreq.XReq) error {
 
 func (server XServer) Service(w http.ResponseWriter, r *http.Request) {
 	req := xreq.New(r, w)
-	_ = req.ParseRequest()
-	router := server.router.GetXRouter(req.Path)
+	_ = ParseRequest(req)
+	router := server.Router.GetXRouter(req.Path)
 	var resp *xresp.XResp
 	if router != nil {
 		resp = router.Invoke(req)

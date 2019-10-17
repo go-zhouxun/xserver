@@ -1,8 +1,6 @@
 package xrouter
 
 import (
-	"sync"
-
 	"github.com/go-zhouxun/xserver/xresp"
 
 	"github.com/go-zhouxun/xserver/xreq"
@@ -16,26 +14,24 @@ const (
 
 type XHandler func(*xreq.XReq) *xresp.XResp
 
-type XRouterInfo struct {
+type Info struct {
 	HttpMethod int32 //GET POST PUT OPTION DELETE ...
 	Handlers   []XHandler
 }
 
 type XRouter struct {
-	mapping map[string]*XRouterInfo
-	Lock    sync.Locker
+	mapping map[string]*Info
 }
 
-var Router = &XRouter{
-	mapping: make(map[string]*XRouterInfo),
-	Lock:    new(sync.RWMutex),
+func NewXRouter() *XRouter {
+	return &XRouter{mapping: make(map[string]*Info)}
 }
 
-func (xRouter *XRouter) GetXRouter(url string) *XRouterInfo {
-	return xRouter.mapping[url]
+func (router *XRouter) GetXRouter(url string) *Info {
+	return router.mapping[url]
 }
 
-func (routeInfo *XRouterInfo) Invoke(req *xreq.XReq) *xresp.XResp {
+func (routeInfo *Info) Invoke(req *xreq.XReq) *xresp.XResp {
 	for _, handler := range routeInfo.Handlers {
 		if resp := handler(req); resp != nil {
 			return resp
@@ -45,31 +41,25 @@ func (routeInfo *XRouterInfo) Invoke(req *xreq.XReq) *xresp.XResp {
 }
 
 func (router *XRouter) Get(url string, handlers ...XHandler) {
-	Router.Lock.Lock()
-	defer Router.Lock.Unlock()
-	routerInfo := &XRouterInfo{
+	routerInfo := &Info{
 		HttpMethod: GET,
 		Handlers:   handlers,
 	}
-	Router.mapping[url] = routerInfo
+	router.mapping[url] = routerInfo
 }
 
 func (router *XRouter) Post(url string, handlers ...XHandler) {
-	Router.Lock.Lock()
-	defer Router.Lock.Unlock()
-	routeInfo := &XRouterInfo{
+	routeInfo := &Info{
 		HttpMethod: POST,
 		Handlers:   handlers,
 	}
-	Router.mapping[url] = routeInfo
+	router.mapping[url] = routeInfo
 }
 
 func (router *XRouter) All(url string, handlers ...XHandler) {
-	Router.Lock.Lock()
-	defer Router.Lock.Unlock()
-	routeInfo := &XRouterInfo{
+	routeInfo := &Info{
 		HttpMethod: ALL,
 		Handlers:   handlers,
 	}
-	Router.mapping[url] = routeInfo
+	router.mapping[url] = routeInfo
 }
