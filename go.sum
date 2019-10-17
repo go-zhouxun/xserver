@@ -1,4 +1,4 @@
 github.com/go-zhouxun/xlog v0.0.0-20190513085433-1b9fb436ba7f h1:lVgqATOjzB/TX8rDy1NVSCTG9CDijYBxNNgC+nOcd64=
 github.com/go-zhouxun/xlog v0.0.0-20190513085433-1b9fb436ba7f/go.mod h1:IhHftuC+GVkiBuSa2OvdF2ur4hK3J091fUMaLRM3t2E=
-github.com/go-zhouxun/xutil v0.0.0-20191016090152-59d8f28ebeb9 h1:l16jJc1np6CYrsjsVyc6auOFzpoAycqKvh5wIsYcqbQ=
-github.com/go-zhouxun/xutil v0.0.0-20191016090152-59d8f28ebeb9/go.mod h1:N6jOC2qxQXBNd7UHcPm1GgSn7CFTce1A5S0pO/735yo=
+github.com/go-zhouxun/xutil v0.0.0-20191017023639-0fff9d020c04 h1:QXaTUdPyNB6/YwCkrLAK9sBSAjOp4DVi8Bb5OckDrlY=
+github.com/go-zhouxun/xutil v0.0.0-20191017023639-0fff9d020c04/go.mod h1:N6jOC2qxQXBNd7UHcPm1GgSn7CFTce1A5S0pO/735yo=

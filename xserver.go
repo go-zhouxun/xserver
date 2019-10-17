@@ -3,6 +3,9 @@ package xserver
 import (
 	"fmt"
 	"net/http"
+	"strconv"
+
+	"github.com/go-zhouxun/xutil/xstring"
 
 	"github.com/go-zhouxun/xlog"
 	"github.com/go-zhouxun/xserver/xreq"
@@ -54,6 +57,20 @@ func sendResp(req *xreq.XReq, xresp *xresp.XResp) {
 }
 
 func logAccess(logger xlog.XLog, req *xreq.XReq, xresp *xresp.XResp) {
-	// TODO
-	logger.Info("")
+	TAB := "\t"
+
+	req.XContext.Log("query", req.Query)
+	req.XContext.Log("body", req.Param)
+	req.XContext.Log("cookie", req.Cookies)
+	req.XContext.Log("sticker", req.Sticker)
+	log := xstring.StringJoin(
+		xtime.TodayDateTimeStr(), TAB,
+		req.Method, TAB,
+		req.Path, TAB,
+		req.ReqId, TAB,
+		strconv.Itoa(int(xtime.Now()-req.StartTime)), TAB,
+		req.ClientIP, TAB,
+		req.XContext.String(),
+	)
+	logger.Info(log)
 }

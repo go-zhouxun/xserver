@@ -6,40 +6,45 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/go-zhouxun/xserver/xcontext"
+
 	"github.com/go-zhouxun/xserver/xerr"
 	"github.com/go-zhouxun/xserver/xtype"
 	"github.com/go-zhouxun/xutil/xtime"
 )
 
 type XReq struct {
-	R            *http.Request
-	W            http.ResponseWriter
-	Method       string
-	Path         string
-	ReqId        string
-	ClientIP     string
-	StartTime    int64
-	Query        map[string]interface{}
-	Param        map[string]interface{}
-	Cookies      map[string]string
-	HandlerParam map[string]interface{}
-	Body         []byte
+	R         *http.Request
+	W         http.ResponseWriter
+	Method    string
+	Path      string
+	ReqId     string
+	ClientIP  string
+	StartTime int64
+	Query     map[string]interface{}
+	Param     map[string]interface{}
+	Cookies   map[string]string
+	Sticker   map[string]interface{}
+	Body      []byte
+	XContext  *xcontext.XContext
 }
 
 func New(r *http.Request, w http.ResponseWriter) *XReq {
+	startTime := xtime.Now()
 	return &XReq{
-		R:            r,
-		W:            w,
-		Method:       r.Method,
-		Path:         r.URL.Path,
-		ReqId:        createReqId(),
-		ClientIP:     getRealIP(r),
-		StartTime:    xtime.Now(),
-		Query:        make(map[string]interface{}),
-		Param:        make(map[string]interface{}),
-		Cookies:      make(map[string]string),
-		HandlerParam: make(map[string]interface{}),
-		Body:         make([]byte, 0),
+		R:         r,
+		W:         w,
+		Method:    r.Method,
+		Path:      r.URL.Path,
+		ReqId:     createReqId(),
+		ClientIP:  getRealIP(r),
+		StartTime: startTime,
+		Body:      make([]byte, 0),
+		Cookies:   make(map[string]string),
+		Query:     make(map[string]interface{}),
+		Param:     make(map[string]interface{}),
+		Sticker:   make(map[string]interface{}),
+		XContext:  xcontext.NewXContext(startTime),
 	}
 }
 
