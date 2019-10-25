@@ -3,9 +3,9 @@ package xerr
 import "encoding/json"
 
 type XErr struct {
-	Code    int64
-	Msg     string
-	Sticker map[string]interface{}
+	Code    int64                  `json:"code"`
+	Msg     string                 `json:"msg"`
+	Sticker map[string]interface{} `json:"result"`
 }
 
 func NewXErr(code int64, msg string, sticker map[string]interface{}) XErr {
