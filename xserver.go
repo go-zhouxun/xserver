@@ -27,7 +27,6 @@ func NewXServer(logger xlog.XLog) *XServer {
 }
 
 func (server XServer) Listen(port int) error {
-	http.HandleFunc("/", server.Service)
 	return http.ListenAndServe(":"+strconv.Itoa(port), nil)
 }
 

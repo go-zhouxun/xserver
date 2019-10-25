@@ -1,6 +1,9 @@
 package xrouter
 
 import (
+	"net/http"
+
+	"github.com/go-zhouxun/xserver/xerr"
 	"github.com/go-zhouxun/xserver/xresp"
 
 	"github.com/go-zhouxun/xserver/xreq"
@@ -32,12 +35,25 @@ func (router *XRouter) GetXRouter(url string) *Info {
 }
 
 func (routeInfo *Info) Invoke(req *xreq.XReq) *xresp.XResp {
+	defaultResp := &xresp.XResp{
+		HttpCode: http.StatusInternalServerError,
+		Body:     []byte(`{"status": -1, "msg": "未知错误"}`),
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err, ok := r.(xerr.XErr)
+			if ok {
+				defaultResp.HttpCode = http.StatusBadRequest
+				defaultResp.Body = []byte(err.Error())
+			}
+		}
+	}()
 	for _, handler := range routeInfo.Handlers {
 		if resp := handler(req); resp != nil {
 			return resp
 		}
 	}
-	return nil
+	return defaultResp
 }
 
 func (router *XRouter) Get(url string, handlers ...XHandler) {

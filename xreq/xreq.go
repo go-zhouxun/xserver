@@ -121,11 +121,11 @@ func (req *XReq) GetParam(name string) (interface{}, bool) {
 func (req *XReq) MustGetInt64(name string) int64 {
 	v, exist := req.GetParam(name)
 	if !exist {
-		panic("param " + name + " not exist")
+		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
 	value, ok := xtype.GetInt64(v)
 	if !ok {
-		panic("param " + name + " not exist")
+		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
 	return value
 }
@@ -133,11 +133,11 @@ func (req *XReq) MustGetInt64(name string) int64 {
 func (req *XReq) MustGetInt32(name string) int32 {
 	v, exist := req.GetParam(name)
 	if !exist {
-		panic("param " + name + " not exist")
+		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
 	value, ok := xtype.GetInt32(v)
 	if !ok {
-		panic("param " + name + " not exist")
+		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
 	return value
 }
@@ -145,11 +145,11 @@ func (req *XReq) MustGetInt32(name string) int32 {
 func (req *XReq) MustGetFloat64(name string) float64 {
 	v, exist := req.GetParam(name)
 	if !exist {
-		panic("param " + name + " not exist")
+		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
 	value, ok := xtype.GetFloat64(v)
 	if !ok {
-		panic("param " + name + " not exist")
+		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
 	return value
 }
@@ -157,11 +157,11 @@ func (req *XReq) MustGetFloat64(name string) float64 {
 func (req *XReq) MustGetFloat32(name string) float64 {
 	v, exist := req.GetParam(name)
 	if !exist {
-		panic("param " + name + " not exist")
+		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
 	value, ok := xtype.GetFloat32(v)
 	if !ok {
-		panic("param " + name + " not exist")
+		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
 	return value
 }
@@ -169,11 +169,11 @@ func (req *XReq) MustGetFloat32(name string) float64 {
 func (req *XReq) MustGetBool(name string) bool {
 	v, exist := req.GetParam(name)
 	if !exist {
-		panic("param " + name + " not exist")
+		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
 	value, ok := xtype.GetBool(v)
 	if !ok {
-		panic("param " + name + " not exist")
+		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
 	return value
 }
@@ -181,7 +181,7 @@ func (req *XReq) MustGetBool(name string) bool {
 func (req *XReq) MustGetString(name string) string {
 	v, exist := req.GetParam(name)
 	if !exist {
-		panic("param " + name + " not exist")
+		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
 	return xtype.V2String(v)
 }
