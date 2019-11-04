@@ -68,12 +68,13 @@ func logAccess(logger xlog.XLog, req *xreq.XReq, xresp *xresp.XResp) {
 	req.XContext.Log("query", req.Query)
 	req.XContext.Log("body", req.Param)
 	req.XContext.Log("cookie", req.Cookies)
-	req.XContext.Log("resp", xresp)
+	req.XContext.Log("resp", string(xresp.Body))
 	req.XContext.Log("sticker", req.Sticker)
 	log := xstring.StringJoin(
 		xtime.TodayDateTimeStr(), TAB,
 		req.Method, TAB,
 		req.Path, TAB,
+		strconv.Itoa(xresp.HttpCode), TAB,
 		req.ReqId, TAB,
 		strconv.Itoa(int(xtime.Now()-req.StartTime)), TAB,
 		req.ClientIP, TAB,
