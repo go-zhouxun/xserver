@@ -3,7 +3,7 @@ package xerr
 import "encoding/json"
 
 type XErr struct {
-	Code    int64                  `json:"code"`
+	Code    int64                  `json:"status"`
 	Msg     string                 `json:"msg"`
 	Sticker map[string]interface{} `json:"result"`
 }
