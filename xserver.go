@@ -14,6 +14,13 @@ import (
 	"github.com/go-zhouxun/xutil/xtime"
 )
 
+var DefaultXServer *XServer
+
+// single instance
+func SetXServer(server *XServer) {
+	DefaultXServer = server
+}
+
 type XServer struct {
 	logger xlog.XLog
 	Router *xrouter.XRouter
