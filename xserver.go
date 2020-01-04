@@ -14,23 +14,23 @@ import (
 	"github.com/go-zhouxun/xutil/xtime"
 )
 
+// single instance
 var DefaultXServer *XServer
 
-// single instance
-func SetXServer(server *XServer) {
-	DefaultXServer = server
+func init() {
+	DefaultXServer = &XServer{
+		Router: xrouter.NewXRouter(),
+	}
+}
+
+// set logger
+func SetLogger(logger xlog.XLog) {
+	DefaultXServer.logger = logger
 }
 
 type XServer struct {
 	logger xlog.XLog
 	Router *xrouter.XRouter
-}
-
-func NewXServer(logger xlog.XLog) *XServer {
-	return &XServer{
-		logger: logger,
-		Router: xrouter.NewXRouter(),
-	}
 }
 
 func (server XServer) Listen(port int) error {
