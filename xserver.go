@@ -27,7 +27,7 @@ func NewXServer(logger xlog.XLog) *XServer {
 }
 
 func (server XServer) Listen(port int) error {
-	http.HandleFunc("/", server.Service)
+	http.HandleFunc("/", server.service)
 	return http.ListenAndServe(":"+strconv.Itoa(port), nil)
 }
 
@@ -35,7 +35,7 @@ func ParseRequest(req *xreq.XReq) error {
 	return req.ParseRequest()
 }
 
-func (server XServer) Service(w http.ResponseWriter, r *http.Request) {
+func (server XServer) service(w http.ResponseWriter, r *http.Request) {
 	req := xreq.New(r, w)
 	_ = ParseRequest(req)
 	router := server.Router.GetXRouter(req.Path)
