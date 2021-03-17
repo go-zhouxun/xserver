@@ -1,6 +1,6 @@
 module github.com/go-zhouxun/xserver
 
-go 1.13
+go 1.15
 
 require (
 	github.com/go-zhouxun/xlog v0.0.0-20190513085433-1b9fb436ba7f
