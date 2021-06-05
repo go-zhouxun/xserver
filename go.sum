@@ -11,10 +11,14 @@ github.com/go-zhouxun/xlog v0.1.3 h1:WBGv+jT0RqdRH46n8/nCLctkEwaA0Yt/GlwGRwln39o
 github.com/go-zhouxun/xlog v0.1.3/go.mod h1:IhHftuC+GVkiBuSa2OvdF2ur4hK3J091fUMaLRM3t2E=
 github.com/go-zhouxun/xlog v0.1.4 h1:QYpZAHszn+lCOf1BQxSkOfqYe+x9ZOPL2FANUo94z6E=
 github.com/go-zhouxun/xlog v0.1.4/go.mod h1:IhHftuC+GVkiBuSa2OvdF2ur4hK3J091fUMaLRM3t2E=
+github.com/go-zhouxun/xlog v0.1.5 h1:DsD9ys46ZgHPfajCwQE7nCtf7wi0hn1drgscT6DF6eE=
+github.com/go-zhouxun/xlog v0.1.5/go.mod h1:IhHftuC+GVkiBuSa2OvdF2ur4hK3J091fUMaLRM3t2E=
 github.com/go-zhouxun/xutil v0.0.0-20191017023639-0fff9d020c04 h1:QXaTUdPyNB6/YwCkrLAK9sBSAjOp4DVi8Bb5OckDrlY=
 github.com/go-zhouxun/xutil v0.0.0-20191017023639-0fff9d020c04/go.mod h1:N6jOC2qxQXBNd7UHcPm1GgSn7CFTce1A5S0pO/735yo=
 github.com/leodido/go-urn v1.2.1 h1:BqpAaACuzVSgi/VLzGZIobT2z4v53pjosyNd9Yv6n/w=
 github.com/leodido/go-urn v1.2.1/go.mod h1:zt4jvISO2HfUBqxjfIshjdMTYS56ZS/qv49ictyFfxY=
+github.com/mufti1/interconv v0.0.0-20190313040840-d7c72925c656 h1:p+IdebEeB9SAEH9IOJVF6oZ535bwvWqUdqWxG1UWeko=
+github.com/mufti1/interconv v0.0.0-20190313040840-d7c72925c656/go.mod h1:+db4NNs1NvceiftEzz0ymfu3zKLkynYukafc7llNoMs=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=

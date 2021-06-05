@@ -15,13 +15,11 @@ import (
 )
 
 type XServer struct {
-	logger xlog.XLog
 	Router *xrouter.XRouter
 }
 
-func NewXServer(logger xlog.XLog) *XServer {
+func NewXServer() *XServer {
 	return &XServer{
-		logger: logger,
 		Router: xrouter.NewXRouter(),
 	}
 }
@@ -46,7 +44,7 @@ func (server XServer) service(w http.ResponseWriter, r *http.Request) {
 		resp = xresp.NotFound()
 	}
 	sendResp(req, resp)
-	logAccess(server.logger, req, resp)
+	logAccess(req, resp)
 }
 
 func sendResp(req *xreq.XReq, xresp *xresp.XResp) {
@@ -63,7 +61,7 @@ func sendResp(req *xreq.XReq, xresp *xresp.XResp) {
 	_, _ = w.Write(xresp.Body)
 }
 
-func logAccess(logger xlog.XLog, req *xreq.XReq, xresp *xresp.XResp) {
+func logAccess(req *xreq.XReq, xresp *xresp.XResp) {
 	TAB := "\t"
 
 	req.XContext.Log("query", req.Query)
@@ -79,5 +77,5 @@ func logAccess(logger xlog.XLog, req *xreq.XReq, xresp *xresp.XResp) {
 		req.ClientIP, TAB,
 		req.XContext.String(),
 	)
-	logger.Info(log)
+	xlog.Info(log)
 }

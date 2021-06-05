@@ -2,15 +2,17 @@ package xreq
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
+	"reflect"
 	"strings"
 
 	"github.com/go-playground/validator"
+	interconv "github.com/mufti1/interconv/package"
 
 	"github.com/go-zhouxun/xserver/xcontext"
 	"github.com/go-zhouxun/xserver/xerr"
-	"github.com/go-zhouxun/xserver/xtype"
 	"github.com/go-zhouxun/xutil/xtime"
 )
 
@@ -138,8 +140,8 @@ func (req *XReq) MustGetInt64(name string) int64 {
 	if !exist {
 		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
-	value, ok := xtype.GetInt64(v)
-	if !ok {
+	value, error := interconv.ParseInt64(v)
+	if error != nil {
 		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
 	return value
@@ -150,8 +152,8 @@ func (req *XReq) MustGetInt32(name string) int32 {
 	if !exist {
 		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
-	value, ok := xtype.GetInt32(v)
-	if !ok {
+	value, err := interconv.ParseInt32(v)
+	if err != nil {
 		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
 	return value
@@ -162,20 +164,20 @@ func (req *XReq) MustGetFloat64(name string) float64 {
 	if !exist {
 		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
-	value, ok := xtype.GetFloat64(v)
-	if !ok {
+	value, err := interconv.ParseFloat64(v)
+	if err != nil {
 		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
 	return value
 }
 
-func (req *XReq) MustGetFloat32(name string) float64 {
+func (req *XReq) MustGetFloat32(name string) float32 {
 	v, exist := req.GetParam(name)
 	if !exist {
 		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
-	value, ok := xtype.GetFloat32(v)
-	if !ok {
+	value, err := interconv.ParseFloat32(v)
+	if err != nil {
 		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
 	return value
@@ -186,8 +188,8 @@ func (req *XReq) MustGetBool(name string) bool {
 	if !exist {
 		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
-	value, ok := xtype.GetBool(v)
-	if !ok {
+	value, err := interconv.ParseBoolean(v)
+	if err != nil {
 		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
 	return value
@@ -198,5 +200,14 @@ func (req *XReq) MustGetString(name string) string {
 	if !exist {
 		panic(xerr.NewXErr(-7, "param "+name+" not exist", nil))
 	}
-	return xtype.V2String(v)
+	return v2String(v)
+}
+
+func v2String(v interface{}) string {
+	if reflect.TypeOf(v).String() == "[]uint8" {
+		return string(v.([]uint8))
+	} else if reflect.TypeOf(v).String() == "[]byte" {
+		return string(v.([]byte))
+	}
+	return fmt.Sprintf("%v", v)
 }
