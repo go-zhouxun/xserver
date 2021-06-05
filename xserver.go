@@ -24,9 +24,9 @@ func NewXServer() *XServer {
 	}
 }
 
-func (server XServer) Listen(port int) error {
+func (server XServer) Listen(port string) error {
 	http.HandleFunc("/", server.service)
-	return http.ListenAndServe(":"+strconv.Itoa(port), nil)
+	return http.ListenAndServe(port, nil)
 }
 
 func ParseRequest(req *xreq.XReq) error {

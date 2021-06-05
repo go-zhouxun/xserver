@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/go-zhouxun/xlog"
 	"github.com/go-zhouxun/xserver"
 	"github.com/go-zhouxun/xserver/xreq"
@@ -11,9 +13,10 @@ func main() {
 	server := xserver.NewXServer()
 	server.Router.Get("/aaa", aaa, bbb)
 
-	xlog.Info("Server listening on :8010")
-	if err := server.Listen(8010); err != nil {
-		xlog.Error("listen port :8010 failed, %v", err)
+	port := os.Getenv("APP_PORT")
+	xlog.Info("Server listening on %s", port)
+	if err := server.Listen(port); err != nil {
+		xlog.Error("listen port %s failed, %v", port, err)
 	}
 }
 
