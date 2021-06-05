@@ -6,12 +6,15 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/go-zhouxun/xserver/xcontext"
+	"github.com/go-playground/validator"
 
+	"github.com/go-zhouxun/xserver/xcontext"
 	"github.com/go-zhouxun/xserver/xerr"
 	"github.com/go-zhouxun/xserver/xtype"
 	"github.com/go-zhouxun/xutil/xtime"
 )
+
+var validate = validator.New()
 
 type XReq struct {
 	R         *http.Request
@@ -46,6 +49,18 @@ func New(r *http.Request, w http.ResponseWriter) *XReq {
 		Sticker:   make(map[string]interface{}),
 		XContext:  xcontext.NewXContext(startTime),
 	}
+}
+
+func (req *XReq) ParseBody(s interface{}) error {
+	err := json.Unmarshal(req.Body, &s)
+	if err != nil {
+		panic(xerr.NewXErr(-7, err.Error(), nil))
+	}
+	err = validate.Struct(s)
+	if err != nil {
+		panic(xerr.NewXErr(-7, err.Error(), nil))
+	}
+	return nil
 }
 
 func (req *XReq) ParseRequest() error {
