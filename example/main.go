@@ -1,8 +1,7 @@
 package main
 
 import (
-	"fmt"
-
+	"github.com/go-zhouxun/xlog"
 	"github.com/go-zhouxun/xserver"
 	"github.com/go-zhouxun/xserver/xreq"
 	"github.com/go-zhouxun/xserver/xresp"
@@ -11,8 +10,10 @@ import (
 func main() {
 	server := xserver.NewXServer()
 	server.Router.Get("/aaa", aaa, bbb)
+
+	xlog.Info("Server listening on :8010")
 	if err := server.Listen(8010); err != nil {
-		fmt.Println("listen port :8010 failed, ", err)
+		xlog.Error("listen port :8010 failed, %v", err)
 	}
 }
 
